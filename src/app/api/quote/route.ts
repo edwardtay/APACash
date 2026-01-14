@@ -126,9 +126,14 @@ export async function GET(request: NextRequest) {
     let signatureDebug = 'no_key';
 
     if (DEALER_PRIVATE_KEY) {
-        // Auto-add 0x prefix if missing
-        const key = DEALER_PRIVATE_KEY.startsWith('0x') ? DEALER_PRIVATE_KEY : `0x${DEALER_PRIVATE_KEY}`;
+        // Clean the key: remove quotes, whitespace, and ensure 0x prefix
+        let cleanKey = DEALER_PRIVATE_KEY.trim().replace(/['"]/g, '');
+        if (!cleanKey.startsWith('0x')) {
+            cleanKey = `0x${cleanKey}`;
+        }
         try {
+            const account = privateKeyToAccount(cleanKey as `0x${string}`);
+            signatureDebug = `signing_with_${account.address.slice(0, 10)}`;
             const account = privateKeyToAccount(key as `0x${string}`);
             signatureDebug = `signing_with_${account.address.slice(0, 10)}`;
 
