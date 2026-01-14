@@ -4,7 +4,7 @@ const path = require("path");
 
 async function main() {
     const rpcUrl = "https://sepolia-rollup.arbitrum.io/rpc";
-    const privateKey = "0xe813836eb2d4f2d5c1d30e77653634959f5846d1973457e73f28372a42c2210f";
+    const privateKey = process.env.DEALER_PRIVATE_KEY;
     const provider = new ethers.JsonRpcProvider(rpcUrl);
     const wallet = new ethers.Wallet(privateKey, provider);
 
