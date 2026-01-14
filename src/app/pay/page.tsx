@@ -113,6 +113,11 @@ function PaymentContent() {
         if (!quote) return;
         setTxStatus('approving');
         setError('');
+        console.log('Approving:', {
+            token: CONTRACTS.USDC,
+            spender: CONTRACTS.ROUTER,
+            amount: quote.quote.amountIn
+        });
         approve({
             address: CONTRACTS.USDC as `0x${string}`,
             abi: ERC20_ABI,
