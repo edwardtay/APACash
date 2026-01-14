@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# APACash: Global Crypto. Local Cash.
 
-## Getting Started
+**Instant cross-border payments for Asia-Pacific on Arbitrum.**
 
-First, run the development server:
+![APACash Demo](https://raw.githubusercontent.com/edwardtay/APACash/main/public/demo-banner.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+APACash bridges the gap between global stablecoins (USDC) and local currencies across 17 APAC nations. Using an **Atomic Swap** architecture secured by **EIP-712** signatures, it allows users to pay in USDC and recipients to receive local currency (IDR, PHP, THB, etc.) instantly.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Live Demo
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **App:** [Localhost Demo](http://localhost:3003) (Testnet)
+- **Network:** Arbitrum Sepolia
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Key Features
 
-## Learn More
+- **🌐 17 APAC Currencies**: Support for IDR, PHP, THB, VND, SGD, INR, JPY, KRW, and more.
+- **⚡ Instant Settlement**: Sub-second finality using Arbitrum L2.
+- **🔐 Trustless & Non-Custodial**: Secured by `APACashRouter` contract. Funds never held by us.
+- **💸 Zero Slippage**: Intent-based RFQ model provides exact quotes.
+- **📱 Mobile-First Design**: Elegant, glassmorphism UI optimized for minimal friction.
 
-To learn more about Next.js, take a look at the following resources:
+## 🏗 Architecture
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**The "Dealer Model" (RFQ)**
+We replace complex AMMs with a professional Dealer (Market Maker) model:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1.  **User Intent**: User requests a quote (e.g., "10 USDC for IDR").
+2.  **Off-Chain Pricing**: Dealer API calculates best rate from real-world FX feeds.
+3.  **Cryptographic Signature**: Dealer yields an EIP-712 signed quote.
+4.  **Atomic Execution**: User submits quote to `APACashRouter`. Contract atomically pulls USDC and pushes IDR.
 
-## Deploy on Vercel
+No bonding curves. No impermanent loss. Just efficient settlement.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📜 Deployed Contracts (Arbitrum Sepolia)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Contract | Address |
+|----------|---------|
+| **APACashRouter** | [`0x93fc90a3fb7d8c15bbaf50bfcc612b26ca8e68c8`](https://sepolia.arbiscan.io/address/0x93fc90a3fb7d8c15bbaf50bfcc612b26ca8e68c8) |
+| **MockUSDC** | [`0xcff09905f8f18b35f5a1ba6d2822d62b3d8c48be`](https://sepolia.arbiscan.io/address/0xcff09905f8f18b35f5a1ba6d2822d62b3d8c48be) |
+| **MockIDRX** | [`0xf98a4a0482d534c004cdb9a3358fd71347c4395b`](https://sepolia.arbiscan.io/address/0xf98a4a0482d534c004cdb9a3358fd71347c4395b) |
+
+## 🛠 Tech Stack
+
+- **Frontend**: Next.js 16, TypeScript, Tailwind CSS
+- **Blockchain**: Wagmi, Viem, RainbowKit
+- **Smart Contracts**: Solidity 0.8.20, Hardhat
+- **Security**: OpenZeppelin (EIP-712, SafeERC20, Ownable)
+
+## 📦 Getting Started
+
+1. **Clone the repo**
+   ```bash
+   git clone https://github.com/edwardtay/APACash.git
+   cd APACash
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Setup Environment**
+   ```bash
+   cp .env.example .env.local
+   # Fill in PRIVATE_KEY and DEALER_PRIVATE_KEY
+   ```
+
+4. **Run Development Server**
+   ```bash
+   npm run dev
+   ```
+
+## 🛡 Security
+
+- **Atomic Access**: The Router contract can ONLY transfer funds if a valid, unexpired signature from the Dealer is provided.
+- **Nonce Protection**: Every user has an on-chain nonce to strictly prevent replay attacks.
+- **Deadline Enforcement**: Quotes expire after 10 minutes to protect against FX volatility.
+
+## 📄 License
+
+MIT
