@@ -11,8 +11,9 @@ export default function Home() {
       {/* Header - Transparent & Minimal */}
       <header className="fixed top-0 left-0 right-0 z-50 glass border-b-0">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5">
-            <Image src="/logo_v2.png" alt="APACash" width={400} height={80} className="h-20 w-auto object-contain" priority />
+          <Link href="/" className="flex items-center gap-2">
+            <span className="text-2xl">💵🌏</span>
+            <span className="text-xl font-bold text-white">APACash</span>
           </Link>
           <WalletButton />
         </div>
