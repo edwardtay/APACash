@@ -1,0 +1,7 @@
+error: unexpected argument '--private-key' found
+
+  tip: to pass '--private-key' as a value, use '-- --private-key'
+
+Usage: cast send --create [OPTIONS] <CODE> [SIG] [ARGS]...
+
+For more information, try '--help'.

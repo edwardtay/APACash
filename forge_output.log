@@ -1,0 +1,93 @@
+Compiling 8 files with Solc 0.8.20
+Solc 0.8.20 finished in 298.56ms
+Compiler run successful!
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> contracts/MockIDRX.sol:4:8
+  |
+4 | import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+  |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> contracts/MockUSDC.sol:4:8
+  |
+4 | import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+  |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[mixed-case-variable]: mutable variables should use mixedCase
+  --> contracts/APACashRouter.sol:17:20
+   |
+17 |     bytes32 public DOMAIN_SEPARATOR;
+   |                    ^^^^^^^^^^^^^^^^ help: consider using: `domainSeparator`
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#mixed-case-variable
+
+note[mixed-case-variable]: mutable variables should use mixedCase
+  --> contracts/APACashRouter_Verified.sol:17:20
+   |
+17 |     bytes32 public DOMAIN_SEPARATOR;
+   |                    ^^^^^^^^^^^^^^^^ help: consider using: `domainSeparator`
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#mixed-case-variable
+
+note[asm-keccak256]: use of inefficient hashing mechanism; consider using inline assembly
+  --> contracts/APACashRouter.sol:48:30
+   |
+48 |           bytes32 structHash = keccak256(abi.encode(
+   |  ______________________________^
+49 | |             QUOTE_TYPEHASH,
+50 | |             tokenIn, tokenOut, amountIn, amountOut,
+51 | |             msg.sender, recipient, nonces[msg.sender], deadline
+52 | |         ));
+   | |__________^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#asm-keccak256
+
+note[asm-keccak256]: use of inefficient hashing mechanism; consider using inline assembly
+  --> contracts/APACashRouter_Verified.sol:48:30
+   |
+48 |           bytes32 structHash = keccak256(abi.encode(
+   |  ______________________________^
+49 | |             QUOTE_TYPEHASH,
+50 | |             tokenIn, tokenOut, amountIn, amountOut,
+51 | |             msg.sender, recipient, nonces[msg.sender], deadline
+52 | |         ));
+   | |__________^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#asm-keccak256
+
+note[asm-keccak256]: use of inefficient hashing mechanism; consider using inline assembly
+  --> contracts/APACashRouter_Verified.sol:53:26
+   |
+53 |         bytes32 digest = keccak256(abi.encodePacked("\\x19\\x01", DOMAIN_SEPARATOR, structHash));
+   |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#asm-keccak256
+
+note[asm-keccak256]: use of inefficient hashing mechanism; consider using inline assembly
+  --> contracts/APACashRouter.sol:53:26
+   |
+53 |         bytes32 digest = keccak256(abi.encodePacked("\\x19\\x01", DOMAIN_SEPARATOR, structHash));
+   |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#asm-keccak256
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+  --> contracts/APACashRouter_Verified.sol:70:9
+   |
+70 |         IERC20(token).transferFrom(msg.sender, address(this), amount);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+  --> contracts/APACashRouter.sol:70:9
+   |
+70 |         IERC20(token).transferFrom(msg.sender, address(this), amount);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+

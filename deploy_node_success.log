@@ -1,0 +1,10 @@
+Error: invalid private key, expected hex or 32 bytes, got string
+    at normPrivateKeyToScalar (file:///home/edwardtay/1-hackathon/arbitrum-apac/node_modules/@noble/curves/esm/abstract/weierstrass.js:269:19)
+    at Point.fromPrivateKey (file:///home/edwardtay/1-hackathon/arbitrum-apac/node_modules/@noble/curves/esm/abstract/weierstrass.js:384:40)
+    at Object.getPublicKey (file:///home/edwardtay/1-hackathon/arbitrum-apac/node_modules/@noble/curves/esm/abstract/weierstrass.js:860:22)
+    at privateKeyToAccount (file:///home/edwardtay/1-hackathon/arbitrum-apac/node_modules/viem/_esm/accounts/privateKeyToAccount.js:17:39)
+    at main (file:///home/edwardtay/1-hackathon/arbitrum-apac/scripts/deploy-apacash-router.mjs:30:21)
+    at file:///home/edwardtay/1-hackathon/arbitrum-apac/scripts/deploy-apacash-router.mjs:180:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:377:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:671:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)

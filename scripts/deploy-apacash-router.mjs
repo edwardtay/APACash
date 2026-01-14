@@ -3,7 +3,7 @@ import { privateKeyToAccount } from 'viem/accounts';
 import { arbitrumSepolia } from 'viem/chains';
 import solc from 'solc';
 
-const PRIVATE_KEY = process.env.PRIVATE_KEY || '';
+const PRIVATE_KEY = '0xe813836eb2d4f2d5c1d30e77653634959f5846d1973457e73f28372a42c2210f';
 const IDRX_ADDRESS = process.env.NEXT_PUBLIC_IDRX_ADDRESS || '0xf98a4a0482d534c004cdb9a3358fd71347c4395b';
 
 function compile(contractName, source) {

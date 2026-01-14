@@ -6,7 +6,7 @@ export const SUPPORTED_CHAINS = [arbitrumSepolia] as const;
 export const CONTRACTS = {
     USDC: process.env.NEXT_PUBLIC_USDC_ADDRESS || '0xcff09905f8f18b35f5a1ba6d2822d62b3d8c48be',
     IDRX: process.env.NEXT_PUBLIC_IDRX_ADDRESS || '0xf98a4a0482d534c004cdb9a3358fd71347c4395b',
-    ROUTER: process.env.NEXT_PUBLIC_ROUTER_ADDRESS_V2 || '0x65b439842bc6574e83de1abea3ffd6cea3eb2286',
+    ROUTER: process.env.NEXT_PUBLIC_ROUTER_ADDRESS_V2 || '0x0F5F87b8c668ca7B5C12a5d88B2dF23e7d3461df',
 } as const;
 
 // Full APAC currency configurations

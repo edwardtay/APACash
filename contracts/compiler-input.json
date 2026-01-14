@@ -1,0 +1,22 @@
+{
+    "language": "Solidity",
+    "sources": {
+        "APACashRouter.sol": {
+            "content": "\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.20;\n\ninterface IERC20 {\n    function transferFrom(address from, address to, uint256 amount) external returns (bool);\n    function transfer(address to, uint256 amount) external returns (bool);\n    function balanceOf(address account) external view returns (uint256);\n}\n\ncontract APACashRouter {\n    address public owner;\n    address public dealer;\n    mapping(address => uint256) public nonces;\n\n    bytes32 public constant DOMAIN_TYPEHASH = keccak256(\"EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)\");\n    bytes32 public constant QUOTE_TYPEHASH = keccak256(\"Quote(address tokenIn,address tokenOut,uint256 amountIn,uint256 amountOut,address payer,address recipient,uint256 nonce,uint256 deadline)\");\n    bytes32 public DOMAIN_SEPARATOR;\n\n    event Swap(address indexed payer, address indexed recipient, address tokenIn, address tokenOut, uint256 amountIn, uint256 amountOut);\n\n    constructor(address _dealer) {\n        owner = msg.sender;\n        dealer = _dealer;\n        DOMAIN_SEPARATOR = keccak256(abi.encode(\n            DOMAIN_TYPEHASH,\n            keccak256(\"APACash\"), \n            keccak256(\"1\"),\n            block.chainid,\n            address(this)\n        ));\n    }\n\n    function getNonce(address user) public view returns (uint256) {\n        return nonces[user];\n    }\n\n    function swapWithSignature(\n        address tokenIn,\n        address tokenOut,\n        uint256 amountIn,\n        uint256 amountOut,\n        address recipient,\n        uint256 deadline,\n        bytes calldata signature\n    ) external {\n        require(block.timestamp <= deadline, \"Expired\");\n        \n        bytes32 structHash = keccak256(abi.encode(\n            QUOTE_TYPEHASH,\n            tokenIn, tokenOut, amountIn, amountOut,\n            msg.sender, recipient, nonces[msg.sender], deadline\n        ));\n        bytes32 digest = keccak256(abi.encodePacked(\"\\\\x19\\\\x01\", DOMAIN_SEPARATOR, structHash));\n        \n        // Manual ecrecover to avoid OpenZeppelin dependencies in script\n        address signer = ecrecover(digest, uint8(bytes1(signature[64])), bytes32(signature[0:32]), bytes32(signature[32:64]));\n        require(signer == dealer, \"Invalid signature\");\n\n        nonces[msg.sender]++;\n        \n        // Atomic swap logic\n        require(IERC20(tokenIn).transferFrom(msg.sender, owner, amountIn), \"Transfer in failed\");\n        require(IERC20(tokenOut).transfer(recipient, amountOut), \"Transfer out failed\");\n        \n        emit Swap(msg.sender, recipient, tokenIn, tokenOut, amountIn, amountOut);\n    }\n\n    function fundRouter(address token, uint256 amount) external {\n        require(msg.sender == owner, \"Not owner\");\n        IERC20(token).transferFrom(msg.sender, address(this), amount);\n    }\n}"
+        }
+    },
+    "settings": {
+        "optimizer": {
+            "enabled": true,
+            "runs": 200
+        },
+        "outputSelection": {
+            "*": {
+                "*": [
+                    "abi",
+                    "evm.bytecode"
+                ]
+            }
+        }
+    }
+}
