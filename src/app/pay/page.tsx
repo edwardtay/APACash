@@ -44,7 +44,7 @@ function PaymentContent() {
     });
 
     // Read USDC allowance
-    const { data: allowance } = useReadContract({
+    const { data: allowance, refetch: refetchAllowance } = useReadContract({
         address: CONTRACTS.USDC as `0x${string}`,
         abi: ERC20_ABI,
         functionName: 'allowance',
@@ -154,9 +154,10 @@ function PaymentContent() {
     // Watch transaction states
     useEffect(() => {
         if (approveSuccess && txStatus === 'approving') {
+            refetchAllowance();
             setTxStatus('idle');
         }
-    }, [approveSuccess, txStatus]);
+    }, [approveSuccess, txStatus, refetchAllowance]);
 
     useEffect(() => {
         if (swapSuccess && txStatus === 'swapping') {

@@ -10,7 +10,7 @@ import '@rainbow-me/rainbowkit/styles.css';
 const config = createConfig({
     chains: [arbitrumSepolia],
     transports: {
-        [arbitrumSepolia.id]: http('https://sepolia-rollup.arbitrum.io/rpc'),
+        [arbitrumSepolia.id]: http('https://arbitrum-sepolia.drpc.org'),
     },
     ssr: true,
 });
