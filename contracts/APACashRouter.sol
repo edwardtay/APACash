@@ -23,6 +23,7 @@ contract APACashRouter is EIP712, Ownable {
     using ECDSA for bytes32;
 
     // EIP-712 type hash for Quote struct
+    // IMPORTANT: Field order must match abi.encode order in swapWithSignature
     bytes32 public constant QUOTE_TYPEHASH = keccak256(
         "Quote(address tokenIn,address tokenOut,uint256 amountIn,uint256 amountOut,address payer,address recipient,uint256 nonce,uint256 deadline)"
     );

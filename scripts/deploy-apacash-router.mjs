@@ -61,7 +61,7 @@ contract APACashRouter {
     mapping(address => uint256) public nonces;
 
     bytes32 public constant DOMAIN_TYPEHASH = keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)");
-    bytes32 public constant QUOTE_TYPEHASH = keccak256("Quote(address tokenIn,address tokenOut,uint256 amountIn,uint256 amountOut,address recipient,address payer,uint256 nonce,uint256 deadline)");
+    bytes32 public constant QUOTE_TYPEHASH = keccak256("Quote(address tokenIn,address tokenOut,uint256 amountIn,uint256 amountOut,address payer,address recipient,uint256 nonce,uint256 deadline)");
     bytes32 public DOMAIN_SEPARATOR;
 
     event Swap(address indexed payer, address indexed recipient, address tokenIn, address tokenOut, uint256 amountIn, uint256 amountOut);
@@ -96,7 +96,7 @@ contract APACashRouter {
         bytes32 structHash = keccak256(abi.encode(
             QUOTE_TYPEHASH,
             tokenIn, tokenOut, amountIn, amountOut,
-            recipient, msg.sender, nonces[msg.sender], deadline
+            msg.sender, recipient, nonces[msg.sender], deadline
         ));
         bytes32 digest = keccak256(abi.encodePacked("\\x19\\x01", DOMAIN_SEPARATOR, structHash));
         
