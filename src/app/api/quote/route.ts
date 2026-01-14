@@ -134,8 +134,6 @@ export async function GET(request: NextRequest) {
         try {
             const account = privateKeyToAccount(cleanKey as `0x${string}`);
             signatureDebug = `signing_with_${account.address.slice(0, 10)}`;
-            const account = privateKeyToAccount(key as `0x${string}`);
-            signatureDebug = `signing_with_${account.address.slice(0, 10)}`;
 
             signature = await account.signTypedData({
                 domain: DOMAIN,
