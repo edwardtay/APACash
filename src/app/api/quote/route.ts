@@ -14,15 +14,16 @@ const DOMAIN = {
     verifyingContract: ROUTER_ADDRESS as `0x${string}`,
 };
 
-// EIP-712 Types - must match contract QUOTE_TYPEHASH exactly
+// EIP-712 Types - must match DEPLOYED contract QUOTE_TYPEHASH exactly
+// Deployed contract uses: recipient BEFORE payer (hash: 0xf917bbc0...)
 const QUOTE_TYPE = {
     Quote: [
         { name: 'tokenIn', type: 'address' },
         { name: 'tokenOut', type: 'address' },
         { name: 'amountIn', type: 'uint256' },
         { name: 'amountOut', type: 'uint256' },
-        { name: 'payer', type: 'address' },
         { name: 'recipient', type: 'address' },
+        { name: 'payer', type: 'address' },
         { name: 'nonce', type: 'uint256' },
         { name: 'deadline', type: 'uint256' },
     ],
@@ -144,8 +145,8 @@ export async function GET(request: NextRequest) {
                     tokenOut: getAddress(tokenOut),
                     amountIn: BigInt(amountIn),
                     amountOut: amountOutBigInt,
-                    payer: getAddress(payer),
                     recipient: getAddress(recipient),
+                    payer: getAddress(payer),
                     nonce: BigInt(nonce || '0'),
                     deadline: deadline,
                 },
