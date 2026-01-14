@@ -123,10 +123,14 @@ export async function GET(request: NextRequest) {
 
     // Sign quote if dealer key is configured
     let signature = '0x' + '00'.repeat(65); // Placeholder signature
+    let signatureDebug = 'no_key';
 
-    if (DEALER_PRIVATE_KEY && DEALER_PRIVATE_KEY.startsWith('0x')) {
+    if (DEALER_PRIVATE_KEY) {
+        // Auto-add 0x prefix if missing
+        const key = DEALER_PRIVATE_KEY.startsWith('0x') ? DEALER_PRIVATE_KEY : `0x${DEALER_PRIVATE_KEY}`;
         try {
-            const account = privateKeyToAccount(DEALER_PRIVATE_KEY as `0x${string}`);
+            const account = privateKeyToAccount(key as `0x${string}`);
+            signatureDebug = `signing_with_${account.address.slice(0, 10)}`;
 
             signature = await account.signTypedData({
                 domain: DOMAIN,
@@ -143,8 +147,10 @@ export async function GET(request: NextRequest) {
                     deadline: deadline,
                 },
             });
+            signatureDebug = `signed_by_${account.address.slice(0, 10)}`;
         } catch (err) {
             console.error('Signing error:', err);
+            signatureDebug = `error: ${err instanceof Error ? err.message : 'unknown'}`;
         }
     }
 
@@ -161,6 +167,7 @@ export async function GET(request: NextRequest) {
         data: {
             quote,
             signature,
+            signatureDebug,
             rate: rateData,
             gas: estimatedGas,
             expiresAt: new Date(Number(deadline) * 1000).toISOString(),
