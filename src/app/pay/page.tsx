@@ -180,7 +180,7 @@ function PaymentContent() {
                 <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-2.5">
                         <div className="flex items-center gap-2.5">
-                            <Image src="/logo_full.png" alt="APACash" width={140} height={40} className="h-10 w-auto object-contain" priority />
+                            <Image src="/logo_white.png" alt="APACash" width={140} height={40} className="h-10 w-auto object-contain" priority />
                         </div>
                     </Link>
                     <WalletButton />
