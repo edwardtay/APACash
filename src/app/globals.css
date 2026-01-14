@@ -8,9 +8,9 @@
   /* Slightly more vibrant orange/red */
   --primary-dark: #D43F15;
   --success: #00D094;
-  --text: #F2F2F3;
-  --muted: #8F8F99;
-  --border: rgba(255, 255, 255, 0.08);
+  --text: #FFFFFF;
+  --muted: #E2E2E2;
+  --border: rgba(255, 255, 255, 0.15);
 }
 
 @theme inline {
