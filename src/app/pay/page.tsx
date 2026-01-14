@@ -106,7 +106,7 @@ function PaymentContent() {
         } finally {
             setQuoteLoading(false);
         }
-    }, [amount, recipient, address, nonce, currency]);
+    }, [amount, recipient, address, nonce, currency, refetchNonce]);
 
     // Handle approve
     const handleApprove = () => {
