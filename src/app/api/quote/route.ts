@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createWalletClient, http, keccak256, encodePacked, concat, toHex, numberToHex, pad } from 'viem';
+import { getAddress } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { arbitrumSepolia } from 'viem/chains';
 
@@ -140,12 +140,12 @@ export async function GET(request: NextRequest) {
                 types: QUOTE_TYPE,
                 primaryType: 'Quote',
                 message: {
-                    tokenIn: tokenIn as `0x${string}`,
-                    tokenOut: tokenOut as `0x${string}`,
+                    tokenIn: getAddress(tokenIn),
+                    tokenOut: getAddress(tokenOut),
                     amountIn: BigInt(amountIn),
                     amountOut: amountOutBigInt,
-                    payer: payer as `0x${string}`,
-                    recipient: recipient as `0x${string}`,
+                    payer: getAddress(payer),
+                    recipient: getAddress(recipient),
                     nonce: BigInt(nonce || '0'),
                     deadline: deadline,
                 },
