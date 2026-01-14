@@ -4,7 +4,7 @@ import { privateKeyToAccount } from 'viem/accounts';
 import { arbitrumSepolia } from 'viem/chains';
 
 const DEALER_PRIVATE_KEY = process.env.DEALER_PRIVATE_KEY;
-const ROUTER_ADDRESS = process.env.NEXT_PUBLIC_ROUTER_ADDRESS || '0x0000000000000000000000000000000000000000';
+const ROUTER_ADDRESS = process.env.NEXT_PUBLIC_ROUTER_ADDRESS_V2 || '0x65b439842bc6574e83de1abea3ffd6cea3eb2286';
 
 // EIP-712 Domain
 const DOMAIN = {
