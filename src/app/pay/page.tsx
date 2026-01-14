@@ -52,7 +52,7 @@ function PaymentContent() {
     });
 
     // Read user nonce
-    const { data: nonce } = useReadContract({
+    const { data: nonce, refetch: refetchNonce } = useReadContract({
         address: CONTRACTS.ROUTER as `0x${string}`,
         abi: ROUTER_ABI,
         functionName: 'getNonce',
@@ -77,6 +77,9 @@ function PaymentContent() {
 
         setQuoteLoading(true);
         setError('');
+
+        // Ensure fresh nonce from contract
+        await refetchNonce();
 
         try {
             const amountIn = parseUnits(amount, 6).toString();
