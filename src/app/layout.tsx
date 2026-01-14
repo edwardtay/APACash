@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: "Accept USDC globally, settle in 17 local APAC currencies atomically on Arbitrum.",
   keywords: ["Arbitrum", "USDC", "stablecoin", "payments", "APAC", "Asia-Pacific", "cross-border"],
   icons: {
-    icon: "/favicon.svg",
+    icon: "/icon.png",
   },
   openGraph: {
     title: "APACash - Cross-Border Payments on Arbitrum",

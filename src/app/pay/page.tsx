@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { parseUnits, formatUnits } from 'viem';
 import { WalletButton } from '@/components/WalletButton';
@@ -178,10 +179,9 @@ function PaymentContent() {
             <header className="fixed top-0 left-0 right-0 z-50 glass border-b-0">
                 <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-white font-bold">
-                            A
+                        <div className="flex items-center gap-2.5">
+                            <Image src="/logo_full.png" alt="APACash" width={140} height={40} className="h-10 w-auto object-contain" priority />
                         </div>
-                        <span className="font-bold text-xl tracking-tight text-text">APACash</span>
                     </Link>
                     <WalletButton />
                 </div>
